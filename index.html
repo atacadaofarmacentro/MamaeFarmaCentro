@@ -1,82 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mamãe F - Atacadão Farma Centro</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-        body { font-family: 'Poppins', sans-serif; }
-
-        .hero {
-            background: linear-gradient(135deg, #ec4899, #be185d);
-        }
-
-        .card {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-    </style>
-</head>
-
-<body class="bg-gray-50">
-
-<!-- HEADER -->
-<div class="hero text-white text-center py-10">
-    <h1 class="text-4xl font-bold">🤰 Mamãe F</h1>
-    <p class="mt-2 text-pink-100">Atacadão Farma Centro</p>
-</div>
-
-<!-- INPUT -->
-<div class="max-w-md mx-auto px-6 -mt-10">
-
-    <div class="bg-white p-6 rounded-3xl card">
-
-        <label class="block font-semibold text-gray-600 mb-2">
-            Data da última menstruação (DUM)
-        </label>
-
-        <input type="date" id="dum"
-            class="w-full p-4 rounded-xl bg-gray-100 text-lg font-bold">
-
-        <button onclick="calcular()"
-            class="w-full mt-5 bg-pink-600 hover:bg-pink-700 text-white font-bold py-4 rounded-2xl">
-            CALCULAR GESTAÇÃO
-        </button>
-
-    </div>
-
-    <!-- RESULTADO -->
-    <div id="resultado" class="hidden bg-white p-6 rounded-3xl mt-6 card">
-
-        <div class="text-center">
-            <h2 class="text-5xl font-bold text-pink-600" id="semanas"></h2>
-            <p class="text-gray-500 mt-1">semanas de gestação</p>
-
-            <p class="mt-4 text-gray-700 font-semibold" id="trimestre"></p>
-            <p class="text-gray-500 mt-2" id="dpp"></p>
-        </div>
-
-        <div class="mt-6 p-4 rounded-xl bg-pink-50">
-            <p class="font-semibold text-pink-700">💡 Dica da Farmácia:</p>
-            <p id="dica" class="text-gray-700 mt-1"></p>
-        </div>
-
-        <button onclick="whats()"
-            class="w-full mt-6 bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-2xl">
-            📲 Falar no WhatsApp
-        </button>
-
-        <p class="text-xs text-gray-400 mt-3 text-center">
-            *Informações educativas. Consulte sempre seu médico.
-        </p>
-
-    </div>
-</div>
-
-<script>
-
 function calcular() {
 
     const dum = new Date(document.getElementById("dum").value);
@@ -96,20 +17,24 @@ function calcular() {
 
     let trimestre = "";
     let dica = "";
+    let sintomas = "";
 
     if (semanas <= 12) {
         trimestre = "🌸 1º Trimestre";
-        dica = "Geralmente utilizado: ácido fólico e vitaminas pré-natais conforme orientação médica.";
+        dica = "Ácido fólico e vitaminas pré-natais são os mais comuns nesta fase.";
+        sintomas = "Enjoo, cansaço, sono excessivo, sensibilidade nos seios e alterações hormonais.";
     }
 
     else if (semanas <= 27) {
         trimestre = "🤰 2º Trimestre";
-        dica = "Comum nessa fase: ferro, ômega 3 e hidratantes para pele (estrias).";
+        dica = "Ferro, ômega 3 e hidratação da pele são bastante utilizados.";
+        sintomas = "Melhora dos enjoos, aumento da energia, barriga crescendo e possível dor lombar leve.";
     }
 
     else {
         trimestre = "🐣 3º Trimestre";
-        dica = "Fase final: produtos para maternidade, fraldas RN, pomadas e cuidados pós-parto.";
+        dica = "Produtos para maternidade como fraldas, pomadas e cálcio são comuns.";
+        sintomas = "Cansaço, inchaço nas pernas, falta de ar leve e contrações leves.";
     }
 
     document.getElementById("semanas").innerText = semanas;
@@ -118,22 +43,7 @@ function calcular() {
         "Data provável do parto: " + parto.toLocaleDateString("pt-BR");
 
     document.getElementById("dica").innerText = dica;
+    document.getElementById("sintomas").innerText = sintomas;
 
     document.getElementById("resultado").classList.remove("hidden");
 }
-
-function whats() {
-
-    const numero = "5561992186067";
-
-    const msg = encodeURIComponent(
-        "Olá! Usei a calculadora Mamãe F e quero saber mais sobre os produtos indicados para minha fase."
-    );
-
-    window.open(`https://wa.me/${numero}?text=${msg}`, "_blank");
-}
-
-</script>
-
-</body>
-</html>
